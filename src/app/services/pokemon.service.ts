@@ -11,7 +11,7 @@ export class PokemonService {
   constructor(private http: HttpClient) { }
 
   //Por defecto mostrar 20 pokemons 
-  getPokemonList(limit: number = 20, offset: number = 0): Observable<any> {
+  getPokemonList(limit: number = 50, offset: number = 0): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/pokemon?limit=${limit}&offset=${offset}`);
   }
 

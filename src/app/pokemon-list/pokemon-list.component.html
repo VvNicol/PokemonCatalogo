@@ -1,1 +1,26 @@
-<p>pokemon-list works!</p>
+<div class="container mt-4">
+    <!-- Cargando mensaje -->
+    <div *ngIf="loading" class="alert alert-info text-center">
+      <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+      Cargando Pokémons...
+    </div>
+  
+    <!-- Lista de Pokémon -->
+    <mat-card class="pokemon-list-card mb-4">
+      <mat-card-header class="text-center">
+        <mat-card-title>
+          <h2 class="text-white">Pokémon</h2>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <ul class="list-group">
+          <li *ngFor="let pokemon of pokemons" class="list-group-item d-flex justify-content-start align-items-center pokemon-item">
+            <a [routerLink]="['/pokemon', pokemon.name]" class="text-decoration-none">
+              <span class="font-weight-bold">{{ pokemon.name | titlecase }}</span>
+            </a>
+          </li>
+        </ul>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
