@@ -1,1 +1,8 @@
-<p>category-filter works!</p>
+<div class="filter-container">
+    <label for="type-select">Filtrar por tipo:</label>
+    <select id="type-select" [(ngModel)]="selectedType" (change)="onTypeChange()">
+      <option value="">Todos</option>
+      <option *ngFor="let type of availableTypes" [value]="type">{{ type }}</option>
+    </select>
+  </div>
+  

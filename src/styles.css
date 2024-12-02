@@ -1,119 +1,120 @@
-/* Estilo general del body */
+/* Estilo general del body */ 
 body {
-    background-color: #f4f4f9;
-    font-family: 'Arial', sans-serif;
-  }
-  
-  /* Estilo para el card de la lista */
-  .pokemon-list-card {
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    padding: 20px;
-  }
-  
-  /* Encabezado de la card con color azul */
-  mat-card-header {
-    background-color: #007bff; /* Azul */
-    color: white;
-    padding: 20px;
-    border-radius: 10px 10px 0 0;
-  }
-  
-  /* Título con efecto Pokémon */
+  margin: 0;
+  background-color: #f4f4f9;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Estilo para el card de la lista */
+.pokemon-list-card {
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+/* Encabezado de la card con color azul */
+mat-card-header {
+  background-color: #007bff; /* Azul */
+  color: white;
+  padding: 20px;
+  border-radius: 10px 10px 0 0;
+}
+
+/* Contenedor del título con fondo azul */
+.pokemon-title {
+  text-align: center; /* Centrar el texto */
+  font-size: 3rem; /* Tamaño grande */
+  font-weight: bold;
+  color: #f8d21e; /* Amarillo Pokémon */
+  text-shadow: 4px 4px 10px rgba(0, 0, 255, 0.7); /* Sombra azul más fuerte */
+  margin-bottom: 10px; /* Espacio debajo del título */
+  padding: 10px 0; /* Un poco de espacio alrededor del texto */
+  background-color: #007bff; /* Fondo azul del header */
+  border-bottom: 2px solid #dcdcdc; /* Línea delgada gris debajo */
+}
+
+/* Responsividad */
+@media (max-width: 576px) {
   .pokemon-title {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #f8d21e; /* Amarillo Pokémon */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 25px #007bff, 0 0 5px #007bff; /* Sombras y resplandor */
-    letter-spacing: 3px; /* Un poco de espacio entre letras */
-    animation: pokemonGlow 1.5s ease-in-out infinite; /* Efecto de parpadeo */
+    font-size: 2.5rem; /* Reducir tamaño en pantallas más pequeñas */
   }
-  
-  /* Animación para el título: parpadeo o resplandor */
-  @keyframes pokemonGlow {
-    0% {
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 25px #007bff, 0 0 5px #007bff;
-      color: #f8d21e;
-    }
-    50% {
-      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8), 0 0 35px #ffcc00, 0 0 10px #ffcc00; /* Cambio de color en el resplandor */
-      color: #ffcc00; /* Amarillo vibrante */
-    }
-    100% {
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 25px #007bff, 0 0 5px #007bff;
-      color: #f8d21e;
-    }
-  }
-  
-  /* Responsividad */
-  @media (max-width: 576px) {
-    .pokemon-title {
-      font-size: 2.5rem; /* Reducir tamaño del título en pantallas más pequeñas */
-    }
-  }
-  
-  /* Título dentro del card */
-  mat-card-title h2 {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #f8d21e; /* Amarillo Pokémon */
-  }
-  
-  /* Estilos para los items de la lista */
-  .list-group {
-    padding: 0;
-    margin: 0;
-  }
-  
-  .list-group-item {
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    margin-bottom: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    transition: background-color 0.3s, transform 0.3s;
-    font-size: 1.1rem;
-  }
-  
-  .list-group-item:hover {
-    background-color: #f1f1f1;
-    transform: scale(1.05);
-  }
-  
-  /* Aumentamos el espacio entre los elementos de la lista */
-  .list-group-item a {
-    color: #007bff; /* Azul */
-    text-decoration: none;
-    font-size: 1.2rem;
-    font-weight: 600;
-  }
-  
-  .list-group-item a:hover {
-    text-decoration: underline;
-    color: #0056b3; /* Azul oscuro */
-  }
-  
-  /* Spinner de carga */
-  mat-progress-spinner {
-    margin: auto;
-    display: block;
-  }
-  
-  /* Agregar estilo para las imágenes de los Pokémon */
-  .pokemon-info img {
-    border-radius: 10px;
-    max-width: 100%;
-    height: auto;
-  }
-  
-  /* Responsividad para items de lista en pantallas más grandes */
-  @media (min-width: 768px) {
-    .list-group-item {
+}
+
+.custom-button {
+  background-color: #3687dd !important; /* Azul brillante */
+  color: #ffd500 !important; /* Amarillo vibrante */
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.custom-button:hover {
+  background-color: #88b9e9 !important; /* Azul más oscuro */
+  color: #000000 !important; /* Amarillo más luminoso */
+}
+
+
+/* Estilos para los items de la lista */
+.pokemon-list-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Ajuste de columnas para ser responsivo */
+  gap: 15px;
+  max-width: 90%; /* Ancho limitado para que no ocupe toda la pantalla */
+  margin: 0 auto; /* Centrado horizontal */
+}
+
+/* Estilo de cada tarjeta de Pokémon */
+.pokemon-item {
+  border-radius: 15px;
+  border: 2px solid #f0f0f0;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  overflow: hidden; /* Asegura que las imágenes no sobresalgan */
+}
+
+/* Estilo de la imagen del Pokémon */
+.pokemon-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Estilo del texto dentro de la tarjeta */
+.card-body {
+  padding: 15px;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2c3e50;
+  text-transform: capitalize;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Sutil sombra para el título */
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #7f8c8d;
+}
+
+/* Spinner de carga */
+mat-progress-spinner {
+  margin: auto;
+  display: block;
+}
+
+/* Estilo para las imágenes de los Pokémon */
+.pokemon-info img {
+  border-radius: 10px;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsividad para items de lista en pantallas más grandes */
+@media (min-width: 768px) {
+  .pokemon-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
   }
-  
+}

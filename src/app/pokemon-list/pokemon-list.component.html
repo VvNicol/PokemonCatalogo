@@ -1,32 +1,42 @@
 <div class="container mt-4">
+
+  <div class="pokemon-title">
+    <h2>Pokémon</h2>
+  </div>
+
   <!-- Cargando mensaje -->
   <div *ngIf="loading" class="alert alert-info text-center">
     <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
     Cargando Pokémons...
   </div>
+  
+  <!-- Componente de Filtro -->
+  <app-category-filter
+    [availableTypes]="availableTypes"
+    (typeSelected)="onTypeSelected($event)">
+  </app-category-filter>
 
   <!-- Lista de Pokémon -->
-  <mat-card class="pokemon-list-card mb-4">
-    <mat-card-header class="text-center">
-      <mat-card-title>
-        <h2 class="text-white">Pokémon</h2>
-      </mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <ul class="list-group">
-        <li *ngFor="let pokemon of pokemons"
-          class="list-group-item d-flex justify-content-start align-items-center pokemon-item">
-          <a [routerLink]="['/pokemon', pokemon.name]" class="text-decoration-none">
-            <span class="font-weight-bold">{{ pokemon.name | titlecase }}</span>
-          </a>
-          <span *ngIf="pokemon.types.length; else loading">
-            - {{ pokemon.types.join(', ') }}
-          </span>
-          <ng-template #loading>
-            <span class="text-muted">Loading types...</span>
-          </ng-template>
-        </li>
-      </ul>
-    </mat-card-content>
-  </mat-card>
+  <div class="pokemon-list-container">
+    <div *ngFor="let pokemon of filteredPokemons" class="pokemon-item card mb-3">
+      <div class="row no-gutters">
+        <!-- Imagen del Pokémon -->
+        <div class="col-md-4">
+          <img [src]="pokemon.sprites?.front_default || 'ruta/a/imagen/default.jpg'" alt="{{ pokemon.name }}" class="pokemon-image">
+        </div>
+        <!-- Información del Pokémon -->
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title text-uppercase">{{ pokemon.name | titlecase }}</h5>
+            <p class="card-text">
+              <strong>Tipos:</strong> {{ pokemon.typesText | titlecase }}
+            </p>
+            <button mat-flat-button class="custom-button" [routerLink]="['/pokemon', pokemon.name]">
+              Ver detalles
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
