@@ -13,7 +13,6 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
   styleUrl: './pokemon-list.component.css'
 })
 export class PokemonListComponent implements OnInit {
-
   pokemons: any[] = [];
   loading = true;
 
@@ -22,18 +21,29 @@ export class PokemonListComponent implements OnInit {
   ngOnInit() {
     this.PokemonService.getPokemonList().subscribe({
       next: (data) => {
-        this.pokemons = data.results;
+        this.pokemons = data.results.map((pokemon: any) => ({
+          ...pokemon,
+          types: [], // Inicializamos el array de tipos
+        }));
+
+        this.pokemons.forEach((pokemon) => {
+          this.PokemonService.getPokemonTypes(pokemon.url).subscribe({
+            next: (types) => {
+              pokemon.types = types;
+            },
+            error: (error) => {
+              console.error(`Error al obtener tipos de ${pokemon.name}`, error);
+            },
+          });
+        });
+
         this.loading = false;
       },
       error: (error) => {
-        console.error('Error en obtener la lista de pokemon', error);
+        console.error('Error en obtener la lista de pokémon', error);
         this.loading = false;
       },
-      complete: () => {
-        console.log('Petición completada');
-      }
     });
   }
-
-
 }
+
