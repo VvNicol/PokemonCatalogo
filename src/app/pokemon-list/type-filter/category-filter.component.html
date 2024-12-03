@@ -1,8 +1,30 @@
+<!-- Filtro por tipo -->
 <div class="filter-container">
-    <label for="type-select">Filtrar por tipo:</label>
-    <select id="type-select" [(ngModel)]="selectedType" (change)="onTypeChange()">
-      <option value="">Todos</option>
-      <option *ngFor="let type of availableTypes" [value]="type">{{ type }}</option>
-    </select>
+  <!-- Campo de búsqueda -->
+  <mat-form-field appearance="fill">
+    <mat-label>Busca un Pokémon por nombre</mat-label>
+    <input matInput (input)="onSearchQueryChange($event)" placeholder="Buscar Pokémon" />
+  </mat-form-field>
+
+
+  <!-- Filtro por letra -->
+  <div class="letter-filter">
+    <button *ngFor="let letter of 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')" mat-button [ngClass]="{
+        'btn-selected': selectedLetter === letter,
+        'btn-default': selectedLetter !== letter
+      }" (click)="onLetterChange(letter)">
+      {{ letter }}
+    </button>
+    <button mat-button [ngClass]="{ 'btn-selected': selectedLetter === '' }" (click)="onLetterChange('')">
+      Todas
+    </button>
   </div>
-  
+
+  <mat-form-field appearance="fill">
+    <mat-label>Filtrar por tipo</mat-label>
+    <mat-select [(value)]="selectedType" (selectionChange)="onTypeChange()">
+      <mat-option value="">Todos</mat-option>
+      <mat-option *ngFor="let type of availableTypes" [value]="type">{{ type }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

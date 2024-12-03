@@ -16,12 +16,14 @@ import { CategoryFilterComponent } from "./type-filter/category-filter.component
 })
 export class PokemonListComponent implements OnInit {
   pokemons: any[] = [];
-  filteredPokemons: any[] = []; // Inicialmente vacío
-  loading: boolean = true;
+  filteredPokemons: any[] = [];
   availableTypes: string[] = [];
   selectedType: string = '';
+  selectedLetter: string = '';
+  searchQuery: string = '';
+  loading: boolean = true;
 
-  constructor(private pokemonService: PokemonService) {}
+  constructor(private pokemonService: PokemonService) { }
 
   ngOnInit(): void {
     this.loadPokemonList();
@@ -38,19 +40,20 @@ export class PokemonListComponent implements OnInit {
           .then((details) => {
             this.pokemons = details.map((pokemon: any) => ({
               ...pokemon,
-              typesText: pokemon.types.map((type: { type: { name: string } }) => type.type.name).join(', ')
+              typesText: pokemon.types
+                .map((type: { type: { name: string } }) => type.type.name)
+                .join(', '),
             }));
 
-            this.filteredPokemons = [...this.pokemons]; // Actualizamos el filtro inicial
-
             const typesSet = new Set<string>();
-            this.pokemons.forEach(pokemon =>
+            this.pokemons.forEach((pokemon) =>
               pokemon.types.forEach((type: { type: { name: string } }) =>
                 typesSet.add(type.type.name)
               )
             );
             this.availableTypes = Array.from(typesSet);
 
+            this.filteredPokemons = [...this.pokemons];
             this.loading = false;
           })
           .catch((error) => {
@@ -65,16 +68,40 @@ export class PokemonListComponent implements OnInit {
     });
   }
 
-  onTypeSelected(selectedType: string): void {
-    console.log('Tipo recibido en el padre:', selectedType);
-    this.selectedType = selectedType;
+  onTypeChange(type: string): void {
+    this.selectedType = type;
+    this.filterPokemons();
+  }
 
-    this.filteredPokemons = selectedType
-      ? this.pokemons.filter((pokemon) =>
-          pokemon.types.some(
-            (typeObj: any) => typeObj.type.name.toLowerCase() === selectedType.toLowerCase()
-          )
-        )
-      : [...this.pokemons];
+
+  onLetterSelected(letter: string): void {
+    this.selectedLetter = letter;
+    this.filterPokemons();
+  }
+
+  onSearchQueryChanged(query: string): void {
+    this.searchQuery = query.toLowerCase();
+    this.filterPokemons();
+  }
+
+  private filterPokemons(): void {
+    this.filteredPokemons = this.pokemons.filter((pokemon) => {
+      const matchesType =
+        !this.selectedType ||
+        pokemon.types.some(
+          (type: { type: { name: string } }) =>
+            type.type.name.toLowerCase() === this.selectedType.toLowerCase()
+        );
+
+      const matchesLetter =
+        !this.selectedLetter ||
+        pokemon.name[0].toUpperCase() === this.selectedLetter;
+
+      const matchesSearch =
+        !this.searchQuery || pokemon.name.toLowerCase().includes(this.searchQuery);
+
+      return matchesType && matchesLetter && matchesSearch;
+    });
   }
 }
+

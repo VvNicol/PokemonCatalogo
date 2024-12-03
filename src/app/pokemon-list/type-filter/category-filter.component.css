@@ -1,11 +1,71 @@
+/* Contenedor principal de filtros - organizar los filtros en una fila */
 .filter-container {
-    margin: 1rem 0;
+  display: flex;
+  justify-content: space-between; /* Espacio entre los filtros */
+  align-items: center; /* Alinear verticalmente */
+  gap: 0.0.5rem; /* Espacio entre los filtros */
+  flex-wrap: nowrap; /* Asegura que todo esté en una sola fila */
+  margin-bottom: 0.1rem;
+  width: 100%;
+  padding: 0 1rem; /* Añadido para que no se pegue a los bordes */
+  box-sizing: border-box;
+}
+
+/* Ajuste de tamaño para cada campo de filtro */
+mat-form-field {
+  width: 200px; /* Ajustado para hacerlo más pequeño */
+}
+
+/* Estilos de los botones de la letra */
+.letter-filter {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: nowrap; /* Asegura que los botones estén en una sola fila */
+  white-space: nowrap; /* Asegura que los botones no se envuelvan en varias líneas */
+  max-width: 100%; /* Evita que se desborden en pantallas pequeñas */
+}
+
+/* Estilo para los botones (más pequeños y compactos) */
+.letter-filter button {
+  padding: 5px 5px;  /* Botones más pequeños */
+  font-size: 14px; /* Fuente más pequeña */
+  border-radius: 15px;
+  transition: background-color 0.3s ease;
+  min-width: 10px;
+  min-height: 10px; /* Evita que los botones se hagan demasiado grandes */
+  white-space: nowrap; /* Asegura que el texto del botón no se desborde */
+  text-overflow: ellipsis; /* Muestra puntos suspensivos si el texto es muy largo */
+}
+
+/* Estado predeterminado (color azul) */
+.letter-filter button.btn-default {
+  background-color: rgb(0, 81, 255);
+  color: white;
+  border: 1px solid rgb(0, 60, 255);
+}
+
+/* Estado seleccionado (color amarillo) */
+.letter-filter button.btn-selected {
+  background-color: rgb(255, 208, 0);
+  color: rgb(16, 92, 255);
+  border: 1px solid rgb(255, 217, 0);
+}
+
+/* Ajustes para pantallas más pequeñas (como 1280px) */
+@media (max-width: 1280px) {
+  /* Aquí, no cambiamos el layout, sino que ajustamos tamaños */
+  .filter-container {
+    padding: 0 0.5rem; /* Reduce el padding para que quepa más espacio */
   }
-  
-  #type-select {
-    padding: 0.5rem;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
+
+  .letter-filter {
+    width: 70%; /* Mantiene el 70% del espacio */
+    max-width: 70%; /* Asegura que no se desborde */
   }
-  
+
+  /* Aseguramos que el campo de búsqueda también no ocupe todo el espacio */
+  mat-form-field {
+    width: 200px; /* Ajustado para hacer el campo más pequeño */
+  }
+}

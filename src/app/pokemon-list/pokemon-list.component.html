@@ -1,5 +1,4 @@
 <div class="container mt-4">
-
   <div class="pokemon-title">
     <h2>Pokémon</h2>
   </div>
@@ -10,19 +9,27 @@
     Cargando Pokémons...
   </div>
   
-  <!-- Componente de Filtro -->
-  <app-category-filter
+  <!-- Componente de Filtro por tipo -->
+    <app-category-filter
     [availableTypes]="availableTypes"
-    (typeSelected)="onTypeSelected($event)">
+    (typeSelected)="onTypeChange($event)"
+    (letterSelected)="onLetterSelected($event)"
+    (searchQueryChanged)="onSearchQueryChanged($event)">
   </app-category-filter>
 
+
+
   <!-- Lista de Pokémon -->
-  <div class="pokemon-list-container">
+  <div class="pokemon-list-container mt-4">
     <div *ngFor="let pokemon of filteredPokemons" class="pokemon-item card mb-3">
       <div class="row no-gutters">
         <!-- Imagen del Pokémon -->
         <div class="col-md-4">
-          <img [src]="pokemon.sprites?.front_default || 'ruta/a/imagen/default.jpg'" alt="{{ pokemon.name }}" class="pokemon-image">
+          <img
+            [src]="pokemon.sprites?.front_default || 'ruta/a/imagen/default.jpg'"
+            alt="{{ pokemon.name }}"
+            class="pokemon-image"
+          />
         </div>
         <!-- Información del Pokémon -->
         <div class="col-md-8">
