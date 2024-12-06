@@ -1,1 +1,14 @@
-<p>pokemon-detail works!</p>
+<div *ngIf="pokemon; else loading">
+    <h1>{{ pokemon.name }}</h1>
+    <img [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}" />
+    <p><strong>ID:</strong> {{ pokemon.id }}</p>
+    <p><strong>Altura:</strong> {{ pokemon.height }}</p>
+    <p><strong>Peso:</strong> {{ pokemon.weight }}</p>
+    <p><strong>Tipos:</strong> {{ pokemon.typesText }}</p>
+  </div>
+  
+  <ng-template #loading>
+    <mat-spinner></mat-spinner>
+    <p>Cargando detalles...</p>
+  </ng-template>
+  
