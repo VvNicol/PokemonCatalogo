@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { PokemonService } from '../services/pokemon.service';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { NgIf } from '@angular/common';
-import { routes } from '../app.routes';
 
 @Component({
   selector: 'app-pokemon-detail',
@@ -13,22 +12,28 @@ import { routes } from '../app.routes';
   styleUrls: ['./pokemon-detail.component.css'],
 })
 export class PokemonDetailComponent implements OnInit {
-  pokemon: any = null;
+  pokemon: any = null; // Inicializa como null para borrar la información anterior
+  pokemonId: string | null = null;
 
-  constructor(
-    private route: ActivatedRoute,
-    private pokemonService: PokemonService
-  ) {}
+  constructor(private route: ActivatedRoute, private pokemonService: PokemonService) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      const id = params.get('id'); // Obtener el ID de la URL
-      if (id) {
-        this.pokemonService.getPokemonDetails(id).subscribe({
-          next: (data) => (this.pokemon = data),
-          error: (error) =>
-            console.error('Error cargando los detalles del Pokémon', error),
-        });
+    this.route.paramMap.subscribe(params => {
+      this.pokemonId = params.get('id');
+      if (this.pokemonId) {
+        this.loadPokemonDetails(this.pokemonId);
+      }
+    });
+  }
+
+  loadPokemonDetails(id: string): void {
+    this.pokemon = null; // Borra la información anterior
+    this.pokemonService.getPokemonDetails(id).subscribe({
+      next: (details) => {
+        this.pokemon = details; // Asigna los nuevos detalles
+      },
+      error: (error) => {
+        console.error('Error al cargar los detalles del Pokémon:', error);
       }
     });
   }

@@ -3,7 +3,6 @@
     "target": "https://dlnk.one",
     "secure": true,
     "changeOrigin": true,
-    "logLevel": "debug",
-    "pathRewrite": { "^/api": "" }
+    "logLevel": "debug"
   }
 }

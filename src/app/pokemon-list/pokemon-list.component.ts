@@ -10,7 +10,7 @@ import { CategoryFilterComponent } from "./type-filter/category-filter.component
 @Component({
   selector: 'app-pokemon-list',
   standalone: true,
-  imports: [NgFor, NgIf, RouterLink, CommonModule, MatCardModule, MatProgressSpinner, MatButton, CategoryFilterComponent],
+  imports: [NgFor, NgIf, RouterLink,CommonModule, MatCardModule, MatProgressSpinner, MatButton, CategoryFilterComponent],
   templateUrl: './pokemon-list.component.html',
   styleUrls: ['./pokemon-list.component.css']
 })
@@ -72,7 +72,6 @@ export class PokemonListComponent implements OnInit {
     this.selectedType = type;
     this.filterPokemons();
   }
-
 
   onLetterSelected(letter: string): void {
     this.selectedLetter = letter;

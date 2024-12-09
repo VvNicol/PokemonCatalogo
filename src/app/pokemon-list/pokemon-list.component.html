@@ -28,7 +28,7 @@
             <p class="card-text">
               <strong>Tipos:</strong> {{ pokemon.typesText | titlecase }}
             </p>
-            <button mat-flat-button class="custom-button" [routerLink]="['/pokemon', pokemon.name]">
+            <button mat-flat-button class="custom-button" [routerLink]="['/pokemon', pokemon.id]">
               Ver detalles
             </button>
           </div>
