@@ -1,29 +1,59 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PokemonService {
+  private baseUrl: string = 'https://pokeapi.co/api/v2';
 
-  private baseUrl: string = 'https://pokeapi.co/api/v2'
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  //Por defecto mostrar 20 pokemons 
-  getPokemonList(limit: number = 100, offset: number = 0): Observable<any> {
+  // Obtener la lista de Pokémon con paginación
+  getPokemonList(limit: number = 100, offset: number = 50): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/pokemon?limit=${limit}&offset=${offset}`);
   }
 
+  // Obtener detalles básicos de un Pokémon (nombre o ID)
   getPokemonDetails(nameOrId: string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/pokemon/${nameOrId}`);
+    return this.http.get<any>(`${this.baseUrl}/pokemon/${nameOrId}`).pipe(
+      switchMap((pokemon) => 
+        this.getPokemonSpecies(pokemon.species.url).pipe(
+          map((species) => ({
+            ...pokemon, // Información básica del Pokémon
+            habitat: species.habitat?.name || 'Desconocido',
+            generation: species.generation?.name || 'Desconocida',
+            flavorText: species.flavor_text_entries.find(
+              (entry: any) => entry.language.name === 'es'
+            )?.flavor_text || 'Sin descripción disponible',
+          }))
+        )
+      )
+    );
   }
+
+  // Obtener ubicaciones del Pokémon
+getPokemonLocations(nameOrId: string): Observable<string[]> {
+  return this.http.get<any>(`${this.baseUrl}/pokemon/${nameOrId}/encounters`).pipe(
+    map((locations) =>
+      locations.map((location: any) => location.location_area.name)
+    )
+  );
+}
+
+
+  // Obtener los tipos del Pokémon
   getPokemonTypes(pokemonUrl: string): Observable<string[]> {
     return this.http.get<any>(pokemonUrl).pipe(
-      map((details: { types: any[]; }) => {
-        // Extraemos los nombres de los tipos
-        return details.types.map((typeObj: any) => typeObj.type.name);
-      })
+      map((details: { types: any[] }) =>
+        details.types.map((typeObj: any) => typeObj.type.name)
+      )
     );
+  }
+
+  // Obtener detalles de la especie del Pokémon
+  private getPokemonSpecies(speciesUrl: string): Observable<any> {
+    return this.http.get<any>(speciesUrl);
   }
 }
