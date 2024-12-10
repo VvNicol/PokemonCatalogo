@@ -1,14 +1,11 @@
+<!--Tarjeta con la informacion-->
 <div *ngIf="pokemon; else loading" class="pokemon-card">
   <div class="pokemon-header">
     <h1 class="pokemon-name">{{ pokemon.name }}</h1>
     <p class="flavor-text">{{ pokemon.flavorText || 'Descripción no disponible' }}</p>
   </div>
   <div class="pokemon-body">
-    <img
-      [src]="pokemon.sprites.front_default"
-      alt="{{ pokemon.name }}"
-      class="pokemon-image"
-    />
+    <img [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}" class="pokemon-image" />
     <div class="pokemon-info">
       <p><strong>ID:</strong> #{{ pokemon.id }}</p>
       <p><strong>Altura:</strong> {{ pokemon.height / 10 }} m</p>
@@ -22,6 +19,7 @@
   </div>
 </div>
 
+<!--Cargando datos-->
 <ng-template #loading>
   <div class="loading-container">
     <mat-spinner></mat-spinner>

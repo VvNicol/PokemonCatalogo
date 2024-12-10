@@ -8,6 +8,7 @@
     (letterSelected)="onLetterSelected($event)" (searchQueryChanged)="onSearchQueryChanged($event)">
   </app-category-filter>
 
+  <!-- Targeta de pokemon  -->
   <div class="pokemon-list-container mt-4">
     <div *ngFor="let pokemon of paginatedPokemons" class="pokemon-item card mb-3">
       <div class="row no-gutters">
@@ -30,10 +31,12 @@
       </div>
     </div>
   </div>
-  <!-- Cargando mensaje -->
+
+  <!-- Spinner de Cargar datos -->
   <div *ngIf="loading" class="alert alert-info text-center my-1">
     <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
   </div>
+
   <!-- Paginación -->
   <div class="pagination">
     <!-- Botón Anterior -->

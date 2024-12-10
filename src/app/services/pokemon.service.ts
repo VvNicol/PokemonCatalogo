@@ -16,7 +16,7 @@ export class PokemonService {
 
   constructor(private http: HttpClient) { }
 
-  // Obtener la lista de Pokémon con paginación
+  // Obtener la toda la lista de Pokémons
   getAllPokemon(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/pokemon?limit=100000&offset=0`);
   }
