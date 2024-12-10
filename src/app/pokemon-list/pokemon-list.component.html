@@ -8,14 +8,8 @@
     (letterSelected)="onLetterSelected($event)" (searchQueryChanged)="onSearchQueryChanged($event)">
   </app-category-filter>
 
-  <!-- Cargando mensaje -->
-  <div *ngIf="loading" class="alert alert-info text-center">
-    <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
-  </div>
-
-  <!-- Lista de Pokémon -->
   <div class="pokemon-list-container mt-4">
-    <div *ngFor="let pokemon of filteredPokemons" class="pokemon-item card mb-3">
+    <div *ngFor="let pokemon of paginatedPokemons" class="pokemon-item card mb-3">
       <div class="row no-gutters">
         <!-- Imagen del Pokémon -->
         <div class="col-md-4">
@@ -36,4 +30,25 @@
       </div>
     </div>
   </div>
-</div>
+  <!-- Cargando mensaje -->
+  <div *ngIf="loading" class="alert alert-info text-center my-1">
+    <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+  </div>
+  <!-- Paginación -->
+  <div class="pagination">
+    <!-- Botón Anterior -->
+    <button mat-button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1" class="pagination-button">
+      Anterior
+    </button>
+
+    <!-- Indicador de Página Actual y Total de Páginas -->
+    <span class="page-indicator">
+      Página {{ currentPage }} de {{ totalPages }}
+    </span>
+
+    <!-- Botón Siguiente -->
+    <button mat-button (click)="onPageChange(currentPage + 1)" [disabled]="paginatedPokemons.length < itemsPerPage"
+      class="pagination-button">
+      Siguiente
+    </button>
+  </div>

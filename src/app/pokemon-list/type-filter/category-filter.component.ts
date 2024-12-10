@@ -21,12 +21,11 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './category-filter.component.html',
   styleUrls: ['./category-filter.component.css']
 })
-
 export class CategoryFilterComponent {
-  @Input() availableTypes: string[] = [];
-  @Output() typeSelected = new EventEmitter<string>();
-  @Output() letterSelected = new EventEmitter<string>(); // Nuevo Output para las letras
-  @Output() searchQueryChanged = new EventEmitter<string>();
+  @Input() availableTypes: string[] = []; // Tipos disponibles para seleccionar
+  @Output() typeSelected = new EventEmitter<string>(); // Emitir tipo seleccionado
+  @Output() letterSelected = new EventEmitter<string>(); // Emitir letra seleccionada
+  @Output() searchQueryChanged = new EventEmitter<string>(); // Emitir búsqueda
 
   selectedType: string = ''; // Tipo seleccionado
   selectedLetter: string = ''; // Letra seleccionada
